@@ -1,0 +1,2674 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+public class PocketProApp {
+    public static void main(String[] args) {
+        double balance = 70000;
+        LoginPage loginPage = new LoginPage(balance);
+        loginPage.showFrame();
+    }
+}
+class LoginPage {
+    JFrame f;
+    Container c,c1;
+    public LoginPage(double balance) {
+        f = new JFrame("PocketPro");
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\javalogo.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 90, 200, 200);
+
+        JLabel l2 = new JLabel("Account Number :");
+        l2.setBounds(95, 23, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 11);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.white);
+
+        JTextField text = new JTextField();
+        text.setBounds(200, 262, 100, 30);
+        JLabel l3 = new JLabel("PocketPro PIN :");
+        l3.setBounds(107, 75, 300, 531);
+        l3.setFont(labelFont1);
+        l3.setForeground(Color.white);
+        JPasswordField value = new JPasswordField();
+        value.setBounds(200, 326, 100, 30);
+
+        JButton b = new JButton("Login");
+        b.setBounds(175, 380, 80, 30);
+
+        JLabel l4 = new JLabel();
+        l4.setBounds(170,430,100,30);
+        l4.setForeground(Color.WHITE);
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String accountNumber = text.getText();
+                String pin = new String(value.getPassword());
+                int t=1;
+
+                if (t==1) {
+                    f.dispose();
+                    PocketProMenu mainMenu = new PocketProMenu(balance);
+                    mainMenu.showFrame();
+                } else {
+                    l4.setText("Invalid login");
+                }
+            }
+        });
+        f.add(image);
+        f.add(value);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(b);
+        f.add(text);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+    private boolean isValidLogin(String accountNumber, String pin) {
+        if (accountNumber.equals("01917098959") && pin.equals("2024")) {
+            return true;
+        }
+        return false;
+    }
+}
+
+class PocketProMenu {
+    public JFrame f;
+    Container c,c1;
+
+    private JTextField text;
+
+    public PocketProMenu(double balance) {
+        f = new JFrame("PocketPro");
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        JLabel l1 = new JLabel(" PocketPro Menu ");
+        l1.setBounds(145, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.white);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(155, -130, 300, 510);
+        l2.setForeground(Color.white);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        String s =String.format("%.2f",balance);
+
+        JTextField text = new JTextField(s);
+        text.setBounds(222, 110, 60, 30);
+
+        JButton sendMoney = new JButton("Send Money");
+        sendMoney.setBounds(55, 180, 170, 50);
+
+        JButton MobileRecharge = new JButton("Mobile Recharge");
+        MobileRecharge.setBounds(250, 180, 170, 50);
+
+        JButton cashOut = new JButton("CashOut");
+        cashOut.setBounds(55, 280, 170, 50);
+
+        JButton AddMoney = new JButton("Add Money");
+        AddMoney.setBounds(250, 280, 170, 50);
+
+        JButton Payment = new JButton("Payment");
+        Payment.setBounds(55, 380, 170, 50);
+
+        JButton Loan = new JButton("Loan");
+        Loan.setBounds(250, 380, 170, 50);
+
+
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(sendMoney);
+        f.add(MobileRecharge);
+        f.add(cashOut);
+        f.add(AddMoney);
+        f.add(Payment);
+        f.add(Loan);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sendMoney.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SendMoney SendMoney = new SendMoney(balance);
+                SendMoney.showFrame();
+            }
+        });
+
+        MobileRecharge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                MobileRecharge MobileRecharge = new MobileRecharge(balance);
+                MobileRecharge.showFrame();
+            }
+        });
+
+        cashOut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CashOut CashOut = new CashOut(balance);
+                CashOut.showFrame();
+            }
+        });
+        AddMoney.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddMoney am = new AddMoney(balance);
+                am.showFrame();
+            }
+        });
+        Payment.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Payment p = new Payment(balance);
+                p.showFrame();
+            }
+        });
+        Loan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Loan l = new Loan(balance);
+                l.showFrame();
+            }
+        });
+
+    }
+
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class SendMoney {
+    public JFrame f;
+    Container c,c1;
+    private JTextField text;
+    private JTextField text1;
+    private JTextField text2;
+
+    public SendMoney(double balance) {
+        f = new JFrame("PocketPro");
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        JLabel l1 = new JLabel(" PocketPro SendMoney ");
+        l1.setBounds(120, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(155, -131, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(225, 110, 60, 30);
+
+        JLabel l3 = new JLabel("Enter Number :");
+        l3.setBounds(105, 20, 300, 510);
+        l3.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 262, 100, 30);
+
+        JLabel l4 = new JLabel("Amount :");
+        l4.setBounds(140, 73, 300, 531);
+        l4.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 326, 100, 30);
+
+        JLabel l5 = new JLabel("Enter PIN :");
+        l5.setBounds(132, 128, 300, 552);
+        l5.setForeground(Color.WHITE);
+
+        JPasswordField value2 = new JPasswordField();
+        value2.setBounds(200, 390, 100, 30);
+
+        JButton sendButton = new JButton(">");
+        sendButton.setBounds(175, 450, 80, 30);
+
+        JButton prevButton = new JButton("<");
+        prevButton.setBounds(25, 560, 80, 30);
+
+        prevButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+        final double[] currentBalance = {balance};
+        sendButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String amountString = text2.getText();
+                String number = text1.getText();
+                try {
+                    double amount = Double.parseDouble(amountString);
+                    if (amount <= currentBalance[0]) {
+                        currentBalance[0] -= amount;
+                        f.dispose();
+                        SendMoneySuccess SendMoneySuccess = new SendMoneySuccess(currentBalance[0], number, amountString);
+                        SendMoneySuccess.showFrame();
+                    } else {
+                        JOptionPane.showMessageDialog(f, "Insufficient balance!");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(f, "Invalid amount!");
+                }
+            }
+        });
+
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(text1);
+        f.add(text2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(value2);
+        f.add(sendButton);
+        f.add(prevButton);
+        f.setSize(470, 685);
+        f.setLayout(null);
+    }
+
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class SendMoneySuccess{
+    public JFrame f;
+    Container c,c1;
+    public SendMoneySuccess(double balance, String number, String money) {
+        f = new JFrame("PocketPro");
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        JLabel l1 = new JLabel("PocketPro Send Money Success");
+        l1.setBounds(90, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(150, -130, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+
+        JTextField t1 = new JTextField(String.format("%.2f", balance));
+        t1.setBounds(220, 110, 60, 30);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Time: " + formatter.format(date));
+        l3.setBounds(50, 200, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Send Money Successful to " + number);
+        l4.setBounds(51, 250, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Transaction ID: ");
+        l5.setBounds(50, 300, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("AKK0OKI718");
+        l6.setBounds(51, 320, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Total " + money + " TK");
+        l7.setBounds(50, 370, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JButton home = new JButton("Home");
+        home.setBounds(340, 560, 80, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                SendMoney sendMoney = new SendMoney(balance);
+                sendMoney.showFrame();
+            }
+        });
+        home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+        f.add(l1);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(t1);
+        f.add(home);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+    }
+
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class MobileRecharge{
+    public JFrame f;
+    public MobileRecharge(double balance) {
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Mobile Recharge");
+        l1.setBounds(100, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(155, -131, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(228, 110, 60, 30);
+
+        JLabel l3 = new JLabel("Enter Number :");
+        l3.setBounds(104, 24, 300, 510);
+        l3.setForeground(Color.WHITE);
+
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 262, 100, 30);
+        JLabel l4 = new JLabel("Choose Your Operator");
+        l4.setBounds(150, 300, 300, 60);
+        l4.setForeground(Color.WHITE);
+
+        String[] SimTypes = {"Airtel", "Banglalink", "Grameenphone", "Robi", "Skitto", "Teletalk"};
+        JComboBox<String> SimComboBox = new JComboBox<>(SimTypes);
+        SimComboBox.setBounds(145, 360, 150, 30);
+        ((JFrame) f).getContentPane().add(SimComboBox);
+
+        JButton b = new JButton("Submit");
+        b.setBounds(175, 420, 80, 40);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String usernumber = text1.getText();
+                f.dispose();
+                RechargeMoney rechargeMoney = new RechargeMoney(balance,usernumber);
+                rechargeMoney.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(text1);
+        f.add(l3);
+        f.add(l4);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class RechargeMoney{
+    public JFrame f;
+    public RechargeMoney(double balance,String number){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Mobile Recharge");
+        l1.setBounds(110, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(150, -131, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(218, 110, 60, 30);
+        JRadioButton r1 = new JRadioButton(" Prepaid");
+        r1.setForeground(Color.BLACK);
+        JRadioButton r2 = new JRadioButton(" Postpaid");
+        r2.setForeground(Color.BLACK);
+
+        r1.setBounds(130, 250, 100, 30);
+        r2.setBounds(230, 250, 100, 30);
+        ButtonGroup bg = new ButtonGroup();
+
+        JLabel s1 = new JLabel("Amount : ");
+        s1.setBounds(130, 305, 300, 58);
+        s1.setForeground(Color.WHITE);
+
+        JTextField t1 = new JTextField();
+        t1.setBounds(190, 320, 100, 30);
+
+        JLabel s8 = new JLabel("Enter PIN : ");
+        s8.setBounds(122, 365, 300, 58);
+        s8.setForeground(Color.WHITE);
+
+        JPasswordField t2 = new JPasswordField();
+        t2.setBounds(190, 380, 100, 30);
+
+        JButton b = new JButton(">");
+        b.setBounds(170, 430, 80, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                MobileRecharge MobileRecharge = new MobileRecharge(balance);
+                MobileRecharge.showFrame();
+            }
+        });
+
+        final double[] currentBalance = {balance};
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                String amountString = t1.getText();
+
+                try {
+                    double amount = Double.parseDouble(amountString);
+                    if (amount <= currentBalance[0]) {
+                        currentBalance[0] -= amount;
+                        RechargeSuccess rechargeSuccess = new RechargeSuccess(currentBalance[0],amountString,number);
+                        rechargeSuccess.showFrame();
+                        f.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(f, "Insufficient balance!");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(f, "Invalid amount!");
+                }
+            }
+        });
+
+        bg.add(r1);
+        bg.add(r2);
+        f.add(r1);
+        f.add(r2);
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(s1);
+        f.add(t1);
+        f.add(s8);
+        f.add(t2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class RechargeSuccess{
+    public JFrame f;
+    public RechargeSuccess(double balance,String amount,String number){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro MobileRecharge Success");
+        l1.setBounds(80, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(156, -130, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(226, 110, 60, 30);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Account: "+number);
+        l3.setBounds(51, 200, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Time: "+formatter.format(date));
+        l4.setBounds(50, 250, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Amount "+amount+" TK");
+        l5.setBounds(50, 300, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Charge 0 TK");
+        l6.setBounds(50, 350, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Transaction ID: ");
+        l7.setBounds(50, 400, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JLabel l8 = new JLabel("ALE6CRN8YM");
+        l8.setBounds(51, 420, 400, 100);
+        l8.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(340, 560, 80, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                RechargeMoney rechargeMoney = new RechargeMoney(balance,number);
+                rechargeMoney.showFrame();
+            }
+        });
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(Home);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class CashOut{
+    public JFrame f;
+    public CashOut(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro CashOut");
+        l1.setBounds(135, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(160, -130, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(230, 110, 60, 30);
+
+        JLabel l3 = new JLabel("Enter Agent Number :");
+        l3.setBounds(67, 20, 300, 510);
+        l3.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l4 = new JLabel("Amount :");
+        l4.setBounds(140, 70, 300, 531);
+        l4.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JLabel l5 = new JLabel("Charge will be tk 14.90 / thousand");
+        l5.setBounds(110, 130, 300, 531);
+        l5.setForeground(Color.WHITE);
+
+
+        JButton cb = new JButton(">");
+        cb.setBounds(175, 430, 80, 30);
+
+
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+        final double[] currentBalance = {balance};
+
+        cb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String agentnumber = text1.getText();
+                String amountString = text2.getText();
+
+                try {
+                    double amount = Double.parseDouble(amountString);
+                    double cut = 14.90/1000;
+                    double sum = amount;
+                    double charge = cut*amount;
+                    sum+=charge;
+                    if (sum <= currentBalance[0]) {
+                        currentBalance[0] -= sum;
+                        CashOutSuccess c = new CashOutSuccess(currentBalance[0],amount,agentnumber,charge);
+                        c.showFrame();
+                        f.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(f, "Insufficient balance!");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(f, "Invalid amount!");
+                }
+            }
+        });
+        f.add(l1);
+        f.add(text2);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(cb);
+        f.add(text);
+        f.add(text1);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class CashOutSuccess{
+    public JFrame f;
+    public CashOutSuccess(double balance,double amount,String agentnumber,double charge){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        JLabel l1 = new JLabel("PocketPro CashOut Success");
+        l1.setBounds(90, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Balance :");
+        l2.setBounds(150, -130, 300, 510);
+        Font labelFont1 = new Font(l2.getFont().getName(), Font.BOLD, 14);
+        l2.setFont(labelFont1);
+        l2.setForeground(Color.WHITE);
+        JTextField text = new JTextField(String.format("%.2f",balance));
+        text.setBounds(220, 110, 60, 30);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Account: "+agentnumber);
+        l3.setBounds(51, 200, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Time: "+formatter.format(date));
+        l4.setBounds(50, 250, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Amount "+amount+" TK");
+        l5.setBounds(50, 300, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Charge "+String.format("%.2f",charge)+" TK");
+        l6.setBounds(50, 350, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Transaction ID: ");
+        l7.setBounds(50, 400, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JLabel l8 = new JLabel("ALE6CRN8YM");
+        l8.setBounds(51, 420, 400, 100);
+        l8.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(340, 560, 80, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CashOut CashOut = new CashOut(balance);
+                CashOut.showFrame();
+            }
+        });
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(Home);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+
+}
+class AddMoney{
+    public JFrame f;
+    public AddMoney(double balance){
+        f= new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro AddMoney");
+        l1.setBounds(117, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Select your AddMoney Source");
+        l2.setBounds(120, 170, 400, 100);
+        l2.setForeground(Color.WHITE);
+
+        JRadioButton r1 = new JRadioButton(" Bank to PocketPro");
+        r1.setBounds(130, 250, 180, 30);
+        JRadioButton r2 = new JRadioButton(" Card to PocketPro");
+        r2.setBounds(130, 300, 180, 30);
+
+        ButtonGroup bg = new ButtonGroup();
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+        r1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddBank ab = new AddBank(balance);
+                ab.showFrame();
+            }
+        });
+        r2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddCard ac = new AddCard(balance);
+                ac.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        bg.add(r1);
+        bg.add(r2);
+        f.add(r1);
+        f.add(r2);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+
+}class AddBank{
+    private JFrame f;
+    public AddBank(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        JLabel l1 = new JLabel("Bank to PocketPro");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        String data[][] =
+                {{"Agrani Bank"}, {"AB Bank"}, {"Dutch Bangla Bank"}, {"Prime Bank"}, {"The City Bank"}, {"Exim Bank"}, {"Bank Asia"}, {"United Commercial Bank"}, {"Brac Bank"}, {"Union Bank"}, {"Jamuna Bank"}, {"Padma Bank Limited"}, {"Eastern Bank"}, {"Trust Bank"}, {"Lanka Bangla Bank"}, {"Bangladesh Development Bank"}, {"Dhaka Bank Limited"}, {"IFIC Bank PLC"}, {"Sonali Bank"}, {"Mutual Trust Bank"}, {"NRBC Bank PLC"}, {"Southeast Bank Limited"}, {"Pubali Bank PLC"}, {"The Premier Bank PLC"}, {"Midland Bank Limited"}};
+
+        String column[] = {"All Banks"};
+
+        JTable jt = new JTable(data, column);
+        jt.setBounds(30, 100, 400, 300);
+
+        JScrollPane sp = new JScrollPane(jt);
+        sp.setBounds(30, 100, 400, 300);
+        JButton b = new JButton("Submit");
+        b.setBounds(175, 460, 80, 40);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddMoney am = new AddMoney(balance);
+                am.showFrame();
+            }
+        });
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = jt.getSelectedRow();
+                if (selectedRow != -1) {
+                    String selectedBank = (String) jt.getValueAt(selectedRow, 0);
+                    Banks bs = new Banks(balance,selectedBank);
+                    bs.showFrame();
+                } else {
+                    JOptionPane.showMessageDialog(f, "Please select a bank.");
+                }
+            }
+        });
+
+        f.add(l1);
+        f.getContentPane().add(sp);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class OTP{
+    private JFrame f;
+    public OTP(double balance,String bankName,String paccountNumber,String amount,String baccountNumber){
+        f = new JFrame(bankName);
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\"+bankName+".png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 60, 200, 170);
+
+        JLabel s5 = new JLabel("Enter OTP : ");
+        s5.setBounds(117, 250, 300, 58);
+        s5.setForeground(Color.WHITE);
+
+        JTextField t5 = new JTextField();
+        t5.setBounds(190, 264, 100, 30);
+
+        JButton b = new JButton("Proceed");
+        b.setBounds(170, 340, 100, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Banks bs = new Banks(balance,bankName);
+                bs.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BankSuccess b = new BankSuccess(balance,bankName,paccountNumber,amount,baccountNumber);
+                b.showFrame();
+            }
+        });
+        f.add(image);
+        f.add(s5);
+        f.add(t5);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Banks{
+    private JFrame f;
+    public Banks(double balance,String bankName){
+        f = new JFrame(bankName);
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\"+bankName+".png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 60, 200, 170);
+
+        JLabel s1 = new JLabel("PocketPro Account No. : ");
+        s1.setBounds(40, 243, 300, 58);
+        s1.setForeground(Color.WHITE);
+
+        JTextField t1 = new JTextField();
+        t1.setBounds(190, 260, 100, 30);
+
+        JLabel s2 = new JLabel("Enter Amount : ");
+        s2.setBounds(95, 303, 300, 58);
+        s2.setForeground(Color.WHITE);
+
+        JTextField t2 = new JTextField();
+        t2.setBounds(190, 320, 100, 30);
+
+        JLabel s3 = new JLabel("Bank Account Number : ");
+        s3.setBounds(46, 363, 300, 58);
+        s3.setForeground(Color.WHITE);
+
+        JTextField t3 = new JTextField();
+        t3.setBounds(190, 380, 100, 30);
+
+        JLabel s4 = new JLabel("Bank PIN Number : ");
+        s4.setBounds(75, 423, 300, 58);
+        s4.setForeground(Color.WHITE);
+
+        JPasswordField t4 = new JPasswordField();
+        t4.setBounds(190, 440, 100, 30);
+
+        JButton b = new JButton(">");
+        b.setBounds(170, 500, 100, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddBank ab = new AddBank(balance);
+                ab.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String amountString = t2.getText();
+                double amount = balance + Double.parseDouble(amountString);
+                String a=t1.getText();
+                String b=t2.getText();
+                String c=t3.getText();
+                OTP o = new OTP(amount,bankName,a,b,c);
+                o.showFrame();
+            }
+        });
+
+        f.add(s1);
+        f.add(t1);
+        f.add(s2);
+        f.add(t2);
+        f.add(s3);
+        f.add(t3);
+        f.add(s4);
+        f.add(t4);
+        f.add(prev);
+        f.add(b);
+        f.add(image);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+
+}
+class BankSuccess{
+    JFrame f;
+    public BankSuccess(double balance,String bankName,String paccountNumber,String amount,String baccountNumber){
+        f = new JFrame(bankName);
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel( amount+" Added Successfully to PocketPro");
+        l1.setBounds(60, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\rit.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 70, 200, 170);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Account: "+paccountNumber);
+        l3.setBounds(51, 200, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Time: "+formatter.format(date));
+        l4.setBounds(50, 250, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Amount "+amount+" TK");
+        l5.setBounds(50, 300, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Charge "+"0 TK");
+        l6.setBounds(50, 350, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Transaction ID: ");
+        l7.setBounds(50, 400, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JLabel l8 = new JLabel("DF166e8f9C4A");
+        l8.setBounds(51, 420, 400, 100);
+        l8.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(200, 560, 80, 30);
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l3);
+        f.add(image);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(Home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        ((JFrame) f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+
+class AddCard{
+    JFrame f;
+    public AddCard(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("Card to PocketPro");
+        l1.setBounds(120, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Select your Card Type");
+        l2.setBounds(130, 170, 400, 100);
+        l2.setForeground(Color.WHITE);
+        JRadioButton r1 = new JRadioButton(" Mastercard");
+        r1.setBounds(130, 250, 180, 30);
+        JRadioButton r2 = new JRadioButton(" Visa");
+        r2.setBounds(130, 300, 180, 30);
+        ButtonGroup bg = new ButtonGroup();
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddMoney am = new AddMoney(balance);
+                am.showFrame();
+            }
+        });
+
+        f.add(l1);
+        f.add(l2);
+        bg.add(r1);
+        bg.add(r2);
+        f.add(r1);
+        f.add(r2);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        r1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Mastercard ms = new Mastercard(balance);
+                ms.showFrame();
+            }
+        });
+        r2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Visacard vs = new Visacard(balance);
+                vs.showFrame();
+            }
+        });
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Mastercard{
+    JFrame f;
+    public Mastercard(double balance){
+        f = new JFrame("Mastercard");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("MasterCard to PocketPro");
+        l1.setBounds(120, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\masc.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(130, 90, 190, 160);
+
+        JLabel s1 = new JLabel("PocketPro Account No. : ");
+        s1.setBounds(40, 243, 300, 58);
+        s1.setForeground(Color.WHITE);
+
+        JTextField t1 = new JTextField();
+        t1.setBounds(190, 260, 100, 30);
+
+        JLabel s2 = new JLabel("Enter Amount : ");
+        s2.setBounds(95, 303, 300, 58);
+        s2.setForeground(Color.WHITE);
+
+        JTextField t2 = new JTextField();
+        t2.setBounds(190, 320, 100, 30);
+
+        JLabel s3 = new JLabel("*Card Number : ");
+        s3.setBounds(93, 363, 300, 58);
+        s3.setForeground(Color.WHITE);
+
+        JTextField t3 = new JTextField();
+        t3.setBounds(190, 380, 100, 30);
+
+        JLabel s4 = new JLabel("Cardholder's Name : ");
+        s4.setBounds(65, 423, 300, 58);
+        s4.setForeground(Color.WHITE);
+
+        JTextField t4 = new JTextField();
+        t4.setBounds(190, 440, 100, 30);
+
+        JLabel s5 = new JLabel("*CVV : ");
+        s5.setBounds(146, 485, 300, 58);
+        s5.setForeground(Color.WHITE);
+
+        JPasswordField t5 = new JPasswordField();
+        t5.setBounds(190, 500, 100, 30);
+
+        JButton b = new JButton("Continue");
+        b.setBounds(170, 560, 100, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 600, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddCard ac = new AddCard(balance);
+                ac.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a = t1.getText();
+                String b = t2.getText();
+                String c = t3.getText();
+                double amount = balance + Double.parseDouble(b);
+                CardSuccess cs = new CardSuccess(amount,"MasterCard",a,b,c);
+                cs.showFrame();
+            }
+        });
+
+        f.add(l1);
+        f.add(image);
+        f.add(s1);
+        f.add(t1);
+        f.add(s2);
+        f.add(t2);
+        f.add(s3);
+        f.add(t3);
+        f.add(s4);
+        f.add(t4);
+        f.add(s5);
+        f.add(t5);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Visacard{
+    JFrame f;
+    public Visacard(double balance){
+        f = new JFrame("Visa");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("VisaCard to PocketPro");
+        l1.setBounds(120, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\visa.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 80, 190, 160);
+
+        JLabel s1 = new JLabel("PocketPro Account No. : ");
+        s1.setBounds(40, 243, 300, 58);
+        s1.setForeground(Color.WHITE);
+
+        JTextField t1 = new JTextField();
+        t1.setBounds(190, 260, 100, 30);
+
+        JLabel s2 = new JLabel("Enter Amount : ");
+        s2.setBounds(95, 303, 300, 58);
+        s2.setForeground(Color.WHITE);
+
+        JTextField t2 = new JTextField();
+        t2.setBounds(190, 320, 100, 30);
+
+        JLabel s3 = new JLabel("*Card Number : ");
+        s3.setBounds(93, 363, 300, 58);
+        s3.setForeground(Color.WHITE);
+
+        JTextField t3 = new JTextField();
+        t3.setBounds(190, 380, 100, 30);
+
+        JLabel s4 = new JLabel("Cardholder's Name : ");
+        s4.setBounds(65, 423, 300, 58);
+        s4.setForeground(Color.WHITE);
+
+        JTextField t4 = new JTextField();
+        t4.setBounds(190, 440, 100, 30);
+
+        JLabel s5 = new JLabel("*CVV : ");
+        s5.setBounds(146, 485, 300, 58);
+        s5.setForeground(Color.WHITE);
+
+        JPasswordField t5 = new JPasswordField();
+        t5.setBounds(190, 500, 100, 30);
+
+        JButton b = new JButton(">");
+        b.setBounds(170, 560, 100, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 600, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                AddCard ac = new AddCard(balance);
+                ac.showFrame();
+            }
+        });
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a = t1.getText();
+                String b = t2.getText();
+                String c = t3.getText();
+                double amount = balance + Double.parseDouble(b);
+                CardSuccess cs = new CardSuccess(amount,"Visa",a,b,c);
+                cs.showFrame();
+            }
+            });
+
+        f.add(l1);
+        f.add(image);
+        f.add(s1);
+        f.add(t1);
+        f.add(s2);
+        f.add(t2);
+        f.add(s3);
+        f.add(t3);
+        f.add(s4);
+        f.add(t4);
+        f.add(s5);
+        f.add(t5);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class CardSuccess{
+    JFrame f;
+    public CardSuccess(double balance,String bankName,String paccountNumber,String amount,String baccountNumber){
+        f = new JFrame(bankName);
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel( amount+" Added Successfully to PocketPro");
+        l1.setBounds(60, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\rit.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 70, 200, 170);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Account: "+paccountNumber);
+        l3.setBounds(51, 200, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Time: "+formatter.format(date));
+        l4.setBounds(50, 250, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Amount "+amount+" TK");
+        l5.setBounds(50, 300, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Charge "+"0 TK");
+        l6.setBounds(50, 350, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Transaction ID: ");
+        l7.setBounds(50, 400, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JLabel l8 = new JLabel("DF166e8f9C4A");
+        l8.setBounds(51, 420, 400, 100);
+        l8.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(200, 560, 80, 30);
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l3);
+        f.add(image);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(Home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        ((JFrame) f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Payment{
+    JFrame f;
+    public Payment(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Payment");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("Enter Merchant Number :");
+        l2.setBounds(43, -7, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text = new JTextField();
+        text.setBounds(200, 235, 100, 30);
+
+        JRadioButton r1 = new JRadioButton(" Star Cineplex");
+        r1.setBounds(37, 300, 180, 30);
+        JRadioButton r2 = new JRadioButton(" Blockbuster Cinemas");
+        r2.setBounds(37, 350, 180, 30);
+        JRadioButton r3 = new JRadioButton(" Electricity Bill");
+        r3.setBounds(37, 400, 180, 30);
+        JRadioButton r4 = new JRadioButton(" Daraz");
+        r4.setBounds(37, 450, 180, 30);
+
+        ButtonGroup bg = new ButtonGroup();
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+        r1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                MovieHall mv = new MovieHall(balance,"Cineplex");
+                mv.showFrame();
+            }
+        });
+        r2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                MovieHall mv = new MovieHall(balance,"BlockBuster Cinemas");
+                mv.showFrame();
+            }
+        });
+        r3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Bill bl = new Bill(balance);
+                bl.showFrame();
+            }
+        });
+        r4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Daraz dz = new Daraz(balance);
+                dz.showFrame();
+            }
+        });
+
+        f.add(l1);
+        f.add(l2);
+        f.add(text);
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+        bg.add(r4);
+        f.add(r1);
+        f.add(r2);
+        f.add(r3);
+        f.add(r4);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Daraz{
+    JFrame f;
+    public Daraz(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Enter Product Id :");
+        l2.setBounds(82, 23, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l3 = new JLabel("Enter Merchant Id :");
+        l3.setBounds(74, 70, 300, 531);
+        l3.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JLabel l4 = new JLabel("Enter Merchant number :");
+        l4.setBounds(40, 130, 300, 531);
+        l4.setForeground(Color.WHITE);
+        JTextField text3 = new JTextField();
+        text3.setBounds(200, 380, 100, 30);
+        JButton b = new JButton("Proceed to Pay");
+        b.setBounds(130, 480, 130, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Payment p = new Payment(balance);
+                p.showFrame();
+            }
+        });
+
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                String n = text1.getText();
+                String c = text2.getText();
+                String m = text3.getText();
+                double min = 2000;
+                double max = 10000;
+                Random r = new Random();
+                double pay = r.nextDouble((max - min) + 1) + min;
+                double amount = balance - pay;
+                DarazSuccess dss = new DarazSuccess(amount,"PocketPro",pay,n,c);
+                dss.showFrame();
+            }
+
+        });
+        f.add(l1);
+        f.add(text1);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(text3);
+        f.add(text2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class DarazSuccess{
+    JFrame f;
+    public DarazSuccess(double balance,String billway,double pay,String productId,String merchantId){
+        f = new JFrame("PocketPro");
+        Container c, c1;
+        c = f.getContentPane();
+        c1 = f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        String str = Double.toString(balance);
+        JLabel l1 = new JLabel("Thank you Payment Successful");
+        l1.setBounds(60, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\rit.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 90, 150, 120);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l3 = new JLabel("Product Id: " + productId);
+        l3.setBounds(50, 280, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l2 = new JLabel("BillMethod: " + billway);
+        l2.setBounds(51, 230, 400, 100);
+        l2.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Time: " + formatter.format(date));
+        l4.setBounds(50, 330, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Account: " + merchantId);
+        l6.setBounds(50, 380, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("Paid: "+pay);
+        l7.setBounds(51, 430, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JLabel l8 = new JLabel("TrxID: 91201C49");
+        l8.setBounds(51, 480, 400, 100);
+        l8.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(160, 570, 80, 30);
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l6);
+        f.add(l7);
+        f.add(l8);
+        f.add(image);
+        f.add(Home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+
+class MovieHall{
+    JFrame f;
+    public MovieHall(double balance,String HallName){
+        f = new JFrame(HallName);
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        ImageIcon icon = new ImageIcon("E:\\java pic\\dunki.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(10, 10, 190, 160);
+        ImageIcon icon1 = new ImageIcon("E:\\java pic\\3 idiots.png");
+        JLabel image1 = new JLabel(icon1);
+        image1.setBounds(230, 10, 190, 160);
+        ImageIcon icon2 = new ImageIcon("E:\\java pic\\Wish.png");
+        JLabel image2 = new JLabel(icon2);
+        image2.setBounds(10, 190, 190, 160);
+        ImageIcon icon3 = new ImageIcon("E:\\java pic\\jawan.png");
+        JLabel image3 = new JLabel(icon3);
+        image3.setBounds(230, 190, 190, 160);
+
+        JRadioButton r1 = new JRadioButton(" Dunki - 450tk / ticket");
+        r1.setBounds(37, 380, 180, 30);
+        JRadioButton r2 = new JRadioButton(" 3 Idiots - 250tk / ticket");
+        r2.setBounds(37, 430, 180, 30);
+        JRadioButton r3 = new JRadioButton(" Wish - 400tk / ticket");
+        r3.setBounds(37, 480, 180, 30);
+        JRadioButton r4 = new JRadioButton(" Jawan - 500tk / ticket");
+        r4.setBounds(37, 530, 180, 30);
+
+        ButtonGroup bg = new ButtonGroup();
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 590, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Payment p = new Payment(balance);
+                p.showFrame();
+            }
+        });
+
+        JButton b = new JButton("Continue");
+        b.setBounds(170, 580, 110, 40);
+
+        r1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CinemaTicket ct = new CinemaTicket(balance,450,HallName,"Dunki");
+                ct.showFrame();
+            }
+        });
+        r2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CinemaTicket ct = new CinemaTicket(balance,250,HallName,"3 Idiots");
+                ct.showFrame();
+            }
+        });
+        r3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CinemaTicket ct = new CinemaTicket(balance,400,HallName,"Wish");
+                ct.showFrame();
+            }
+        });
+        r4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                CinemaTicket ct = new CinemaTicket(balance,500,HallName,"Jawan");
+                ct.showFrame();
+            }
+        });
+
+
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+        bg.add(r4);
+        f.add(image);
+        f.add(image1);
+        f.add(image2);
+        f.add(image3);
+        f.add(b);
+        f.add(prev);
+        f.add(r1);
+        f.add(r2);
+        f.add(r3);
+        f.add(r4);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class CinemaTicket {
+    JFrame f;
+
+    public CinemaTicket(double balance, double price, String HallName, String movie) {
+        if (HallName.equals("Cineplex")) {
+            f = new JFrame(HallName);
+            Container c,c1;
+            c = f.getContentPane();
+            c1=f.getContentPane();
+            c.setBackground(Color.BLACK);
+            c1.setBackground(Color.BLACK);
+            ImageIcon icon = new ImageIcon("E:\\java pic\\cineplex.png");
+            JLabel image = new JLabel(icon);
+            image.setBounds(110, 20, 200, 199);
+
+            JLabel l3 = new JLabel("Select Branch: ");
+            l3.setBounds(60, 210, 300, 100);
+            l3.setForeground(Color.WHITE);
+
+            String[] BranchTypes = {"Bashundhara Shopping Mall", "Shimanto Shambhar", "SKS Tower", "Sony Square", "Bangabandhu Military Museum", "Bali Arcade", "Hi-Tech Park, Rajshahi"};
+            JComboBox<String> BranchComboBox = new JComboBox<>(BranchTypes);
+            BranchComboBox.setBounds(160, 252, 160, 20);
+            ((JFrame) f).getContentPane().add(BranchComboBox);
+
+            JLabel l4 = new JLabel("Quantity: ");
+            l4.setBounds(94, 270, 300, 100);
+            l4.setForeground(Color.WHITE);
+
+            JTextField text = new JTextField();
+            text.setBounds(160, 307, 160, 26);
+
+            JLabel l5 = new JLabel("Serial Number: ");
+            l5.setBounds(60, 320, 300, 90);
+            l5.setForeground(Color.WHITE);
+            String[] SerialTypes = {"A-1", "A-2", "A-3", "A-4", "A-5", "B-6", "N-9", "N-8", "C-3", "C-4", "C-7", "D-12", "D-14"};
+            JComboBox<String> SerialComboBox = new JComboBox<>(SerialTypes);
+            SerialComboBox.setBounds(160, 360, 160, 20);
+            ((JFrame) f).getContentPane().add(SerialComboBox);
+
+            JLabel l6 = new JLabel("Time Slot: ");
+            l6.setBounds(88, 370, 300, 100);
+            l6.setForeground(Color.WHITE);
+
+            String[] SlotTypes = {"11:30 AM", "1:40 PM", "3:30 PM", "7:20 PM"};
+            JComboBox<String> SlotComboBox = new JComboBox<>(SlotTypes);
+            SlotComboBox.setBounds(160, 410, 160, 20);
+            ((JFrame) f).getContentPane().add(SlotComboBox);
+
+            JButton prev = new JButton("<");
+            prev.setBounds(25, 560, 80, 30);
+
+            prev.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    f.dispose();
+                    MovieHall mv = new MovieHall(balance,"Cineplex");
+                    mv.showFrame();
+                }
+            });
+
+            JButton b = new JButton("Proceed to Pay");
+            b.setBounds(130, 460, 130, 30);
+
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    f.dispose();
+                    String n = text.getText();
+                    double quantity = Double.parseDouble(n);
+                    double pay = price * quantity;
+                    double amount = balance - pay;
+
+                    CinemaSuccess css = new CinemaSuccess(amount, "Cineplex", pay,n,price,movie);
+                    css.showFrame();
+                }
+
+            });
+
+            f.add(l3);
+            f.add(l4);
+            f.add(l5);
+            f.add(l6);
+            f.add(image);
+            f.add(text);
+            f.add(b);
+            f.add(prev);
+            f.setSize(470, 685);
+            f.setLayout(null);
+            f.setVisible(true);
+        }
+        else if (HallName.equals("BlockBuster Cinemas")) {
+            f = new JFrame(HallName);
+            Container c,c1;
+            c = f.getContentPane();
+            c1=f.getContentPane();
+            c.setBackground(Color.BLACK);
+            c1.setBackground(Color.BLACK);
+            ImageIcon icon = new ImageIcon("E:\\java pic\\cinema.png");
+            JLabel image = new JLabel(icon);
+            image.setBounds(110, 20, 200, 199);
+
+            JLabel l3 = new JLabel("Select Branch: ");
+            l3.setBounds(60, 210, 300, 100);
+            l3.setForeground(Color.WHITE);
+
+            String[] BranchTypes = {"Jamuna Future Park"};
+            JComboBox<String> BranchComboBox = new JComboBox<>(BranchTypes);
+            BranchComboBox.setBounds(160, 252, 160, 20);
+            ((JFrame) f).getContentPane().add(BranchComboBox);
+
+            JLabel l4 = new JLabel("Quantity: ");
+            l4.setBounds(94, 270, 300, 100);
+            l4.setForeground(Color.WHITE);
+
+            JTextField text = new JTextField();
+            text.setBounds(160, 307, 100, 26);
+
+            JLabel l5 = new JLabel("Serial Number: ");
+            l5.setBounds(60, 320, 300, 100);
+            l5.setForeground(Color.WHITE);
+            String[] SerialTypes = {"F-8", "F-6", "H-3", "H-10", "G-4", "G-2", "G-7", "N-9", "N-8", "C-3", "C-4", "C-7", "D-12", "D-14"};
+            JComboBox<String> SerialComboBox = new JComboBox<>(SerialTypes);
+            SerialComboBox.setBounds(160, 360, 160, 20);
+            ((JFrame) f).getContentPane().add(SerialComboBox);
+
+            JLabel l6 = new JLabel("Time Slot: ");
+            l6.setBounds(88, 370, 300, 100);
+            l6.setForeground(Color.WHITE);
+
+            String[] SlotTypes = {"11:40 PM", "1:30 PM", "6:00 PM"};
+            JComboBox<String> SlotComboBox = new JComboBox<>(SlotTypes);
+            SlotComboBox.setBounds(160, 410, 160, 20);
+            ((JFrame) f).getContentPane().add(SlotComboBox);
+
+            JButton prev = new JButton("<");
+            prev.setBounds(25, 560, 80, 30);
+
+            prev.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    f.dispose();
+                    MovieHall mv = new MovieHall(balance,"BlockBuster Cinemas");
+                    mv.showFrame();
+                }
+            });
+
+            JButton b = new JButton("Proceed to Pay");
+            b.setBounds(130, 460, 130, 30);
+
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    f.dispose();
+                    String n = text.getText();
+                    double quantity = Double.parseDouble(n);
+                    double pay = price * quantity;
+                    double amount = balance - pay;
+                    CinemaSuccess css = new CinemaSuccess(amount, "BlockBuster Cinemas", pay,n,price,movie);
+                    css.showFrame();
+                }
+
+            });
+
+            f.add(l3);
+            f.add(l4);
+            f.add(l5);
+            f.add(l6);
+            f.add(image);
+            f.add(text);
+            f.add(b);
+            f.add(prev);
+            f.setSize(470, 685);
+            f.setLayout(null);
+            f.setVisible(true);
+        }
+    }
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class CinemaSuccess {
+    JFrame f;
+
+    public CinemaSuccess(double balance, String HallName, double pay, String Quantity, double price, String movie) {
+        f = new JFrame(HallName);
+        Container c, c1;
+        c = f.getContentPane();
+        c1 = f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        String str = Double.toString(balance);
+        JLabel l1 = new JLabel("Thank you Payment Successful");
+        l1.setBounds(60, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\rit.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 90, 150, 120);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l2 = new JLabel("Hall: " + HallName);
+        l2.setBounds(51, 200, 400, 100);
+        l2.setForeground(Color.WHITE);
+
+        JLabel l3 = new JLabel("Movie: " + movie);
+        l3.setBounds(50, 250, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Ticket Issued Time: " + formatter.format(date));
+        l4.setBounds(50, 300, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Tickets: " + Quantity);
+        l5.setBounds(50, 350, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Paid: " + pay);
+        l6.setBounds(50, 400, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("TrxID: 10091223101C49");
+        l7.setBounds(51, 450, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(160, 550, 80, 30);
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(l6);
+        f.add(l7);
+        f.add(image);
+        f.add(Home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Bill{
+    JFrame f;
+    public Bill(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JRadioButton r1 = new JRadioButton(" Prepaid");
+        r1.setBounds(120, 220, 100, 30);
+        r1.setForeground(Color.BLACK);
+        JRadioButton r2 = new JRadioButton(" Postpaid");
+        r2.setForeground(Color.BLACK);
+        r2.setBounds(220, 220, 100, 30);
+        ButtonGroup bg = new ButtonGroup();
+
+        JRadioButton r3 = new JRadioButton(" Palli Bidyut ");
+        r3.setBounds(37, 320, 180, 30);
+        JRadioButton r4 = new JRadioButton(" DESCO ");
+        r4.setBounds(37, 370, 180, 30);
+        JRadioButton r5 = new JRadioButton(" NESCO");
+        r5.setBounds(37, 420, 180, 30);
+        JRadioButton r6 = new JRadioButton(" DPDC ");
+        r6.setBounds(37, 470, 180, 30);
+        JButton r7 = new JButton(" < ");
+        r7.setBounds(40, 560, 80, 30);
+
+
+        r3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PalliBidyut pb = new PalliBidyut(balance);
+                pb.showFrame();
+            }
+        });
+        r4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Desco dc = new Desco(balance);
+                dc.showFrame();
+            }
+        });
+        r5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Nesco nc = new Nesco(balance);
+                nc.showFrame();
+            }
+        });
+        r6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                DPDC dp = new DPDC(balance);
+                dp.showFrame();
+            }
+        });
+        r7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Payment p = new Payment(balance);
+                p.showFrame();
+            }
+        });
+
+        f.add(l1);
+        f.add(r1);
+        f.add(r2);
+        f.add(r3);
+        f.add(r4);
+        f.add(r5);
+        f.add(r6);
+        f.add(r7);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class PalliBidyut {
+    JFrame f;
+
+    public PalliBidyut(double balance) {
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Enter Meter Number :");
+        l2.setBounds(67, 20, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l3 = new JLabel("Enter Contact Number :");
+        l3.setBounds(57, 70, 300, 531);
+        l3.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JButton b = new JButton("Proceed to Pay");
+        b.setBounds(130, 460, 130, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Bill bl = new Bill(balance);
+                bl.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                String n = text1.getText();
+                String c = text2.getText();
+                double min = 1000;
+                double max = 3000;
+                Random r = new Random();
+                double pay = r.nextDouble((max - min) + 1) + min;
+                double amount = balance - pay;
+                BillSuccess bss = new BillSuccess(amount,"PalliBidyut",pay,n,c);
+                bss.showFrame();
+            }
+
+        });
+        f.add(l1);
+        f.add(text1);
+        f.add(l2);
+        f.add(l3);
+        f.add(text2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+
+    public void showFrame() {
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Desco{
+    JFrame f;
+    public Desco(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Enter Meter Number :");
+        l2.setBounds(67, 20, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l3 = new JLabel("Enter Contact Number :");
+        l3.setBounds(57, 70, 300, 531);
+        l3.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JButton b = new JButton("Proceed to Pay");
+        b.setBounds(130, 460, 130, 30);
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Bill bl = new Bill(balance);
+                bl.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                String n = text1.getText();
+                String c = text2.getText();
+                double min = 1000;
+                double max = 3000;
+                Random r = new Random();
+                double pay = r.nextDouble((max - min) + 1) + min;
+                double amount = balance - pay;
+                BillSuccess bss = new BillSuccess(amount,"Desco",pay,n,c);
+                bss.showFrame();
+            }
+
+        });
+        f.add(l1);
+        f.add(text1);
+        f.add(l2);
+        f.add(l3);
+        f.add(text2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Nesco{
+    JFrame f;
+    public Nesco(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Enter Meter Number :");
+        l2.setBounds(67, 20, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l3 = new JLabel("Enter Contact Number :");
+        l3.setBounds(57, 70, 300, 531);
+        l3.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JButton b = new JButton("Proceed to Pay");
+        b.setBounds(130, 460, 130, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Bill bl = new Bill(balance);
+                bl.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                String n = text1.getText();
+                String c = text2.getText();
+                double min = 1000;
+                double max = 3000;
+                Random r = new Random();
+                double pay = r.nextDouble((max - min) + 1) + min;
+                double amount = balance - pay;
+                BillSuccess bss = new BillSuccess(amount,"Nesco",pay,n,c);
+                bss.showFrame();
+            }
+
+        });
+        f.add(l1);
+        f.add(text1);
+        f.add(l2);
+        f.add(l3);
+        f.add(text2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class DPDC{
+    JFrame f;
+    public DPDC(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        JLabel l1 = new JLabel("PocketPro Pay Bill");
+        l1.setBounds(140, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+        JLabel l2 = new JLabel("Enter Meter Number :");
+        l2.setBounds(67, 20, 300, 510);
+        l2.setForeground(Color.WHITE);
+        JTextField text1 = new JTextField();
+        text1.setBounds(200, 260, 100, 30);
+        JLabel l3 = new JLabel("Enter Contact Number :");
+        l3.setBounds(57, 70, 300, 531);
+        l3.setForeground(Color.WHITE);
+        JTextField text2 = new JTextField();
+        text2.setBounds(200, 320, 100, 30);
+        JButton b = new JButton("Proceed to Pay");
+        b.setBounds(130, 460, 130, 30);
+
+        JButton prev = new JButton("<");
+        prev.setBounds(25, 560, 80, 30);
+
+        prev.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                Bill bl = new Bill(balance);
+                bl.showFrame();
+            }
+        });
+
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                String n = text1.getText();
+                String c = text2.getText();
+                double min = 1000;
+                double max = 3000;
+                Random r = new Random();
+                double pay = r.nextDouble((max - min) + 1) + min;
+                double amount = balance - pay;
+                BillSuccess bss = new BillSuccess(amount,"DPDC",pay,n,c);
+                bss.showFrame();
+            }
+
+        });
+        f.add(l1);
+        f.add(text1);
+        f.add(l2);
+        f.add(l3);
+        f.add(text2);
+        f.add(b);
+        f.add(prev);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+
+
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class BillSuccess{
+    JFrame f;
+    public BillSuccess(double balance,String billway,double pay,String meternumber,String  contactnumber){
+        f = new JFrame("PocketPro");
+        Container c, c1;
+        c = f.getContentPane();
+        c1 = f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+        String str = Double.toString(balance);
+        JLabel l1 = new JLabel("Thank you Payment Successful");
+        l1.setBounds(60, 5, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\rit.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(120, 90, 150, 120);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+
+        JLabel l2 = new JLabel("Meter Number: " + meternumber);
+        l2.setBounds(51, 230, 400, 100);
+        l2.setForeground(Color.WHITE);
+
+        JLabel l3 = new JLabel("BillMethod: " + billway);
+        l3.setBounds(50, 280, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Bill Issued Time: " + formatter.format(date));
+        l4.setBounds(50, 330, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l6 = new JLabel("Paid: " + pay);
+        l6.setBounds(50, 380, 400, 100);
+        l6.setForeground(Color.WHITE);
+
+        JLabel l7 = new JLabel("TrxID: 91201C49");
+        l7.setBounds(51, 430, 400, 100);
+        l7.setForeground(Color.WHITE);
+
+        JButton Home = new JButton("Home");
+        Home.setBounds(160, 520, 80, 30);
+
+        Home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+        f.add(l1);
+        f.add(l2);
+        f.add(l3);
+        f.add(l4);
+        f.add(l6);
+        f.add(l7);
+        f.add(image);
+        f.add(Home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+class Loan{
+    JFrame f;
+    public Loan(double balance){
+        f = new JFrame("PocketPro");
+        Container c,c1;
+        c = f.getContentPane();
+        c1=f.getContentPane();
+        c.setBackground(Color.BLACK);
+        c1.setBackground(Color.BLACK);
+
+        ImageIcon icon = new ImageIcon("E:\\java pic\\not.png");
+        JLabel image = new JLabel(icon);
+        image.setBounds(100, 60, 200, 190);
+
+        JLabel l1 = new JLabel( " Thank you for your interest");
+        l1.setBounds(45, 250, 400, 100);
+        Font labelFont = new Font(l1.getFont().getName(), Font.BOLD, 18);
+        l1.setFont(labelFont);
+        l1.setForeground(Color.WHITE);
+
+        JLabel l3 = new JLabel("To get loan, ");
+        l3.setBounds(51, 300, 400, 100);
+        l3.setForeground(Color.WHITE);
+
+        JLabel l4 = new JLabel("Maintain balance in your PocketPro Account");
+        l4.setBounds(50, 350, 400, 100);
+        l4.setForeground(Color.WHITE);
+
+        JLabel l5 = new JLabel("Make more transactions using Payment & Add Money ");
+        l5.setBounds(50, 400, 400, 100);
+        l5.setForeground(Color.WHITE);
+
+        JButton home = new JButton("Home");
+        home.setBounds(160, 500, 80, 30);
+
+        home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                PocketProMenu mainMenu = new PocketProMenu(balance);
+                mainMenu.showFrame();
+            }
+        });
+
+
+        f.add(image);
+        f.add(l1);
+        f.add(l3);
+        f.add(l4);
+        f.add(l5);
+        f.add(home);
+        f.setSize(470, 685);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public void showFrame(){
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
